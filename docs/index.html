@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="創世界 - AIが紡ぐ世界。宇宙の誕生から文明の興亡まで、すべての事象をシミュレートする壮大な体験。">
+    <meta name="theme-color" content="#0a0a1a">
+    <title>創世界 - AIが紡ぐ世界</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- ローディング画面 -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <div class="loading-symbol">◯</div>
+            <h1 class="loading-title">創世界</h1>
+            <p class="loading-subtitle">AIが紡ぐ世界</p>
+            <div class="loading-bar">
+                <div class="loading-bar-fill" id="loading-bar-fill"></div>
+            </div>
+            <p class="loading-status" id="loading-status">世界の種を蒔いています...</p>
+        </div>
+    </div>
+
+    <!-- メインキャンバス（背景描画用） -->
+    <canvas id="world-canvas"></canvas>
+
+    <!-- ナビゲーション -->
+    <nav id="main-nav">
+        <div class="nav-brand">
+            <span class="nav-symbol">◯</span>
+            <span class="nav-title">創世界</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#genesis" class="nav-link active" data-section="genesis">創世</a></li>
+            <li><a href="#cosmos" class="nav-link" data-section="cosmos">宇宙</a></li>
+            <li><a href="#earth" class="nav-link" data-section="earth">大地</a></li>
+            <li><a href="#ocean" class="nav-link" data-section="ocean">海洋</a></li>
+            <li><a href="#atmosphere" class="nav-link" data-section="atmosphere">大気</a></li>
+            <li><a href="#life" class="nav-link" data-section="life">生命</a></li>
+            <li><a href="#civilization" class="nav-link" data-section="civilization">文明</a></li>
+            <li><a href="#time" class="nav-link" data-section="time">時間</a></li>
+        </ul>
+        <div class="nav-controls">
+            <button id="btn-pause" class="nav-btn" title="一時停止">⏸</button>
+            <button id="btn-speed" class="nav-btn" title="速度変更">×1</button>
+        </div>
+    </nav>
+
+    <!-- メインコンテンツ -->
+    <main id="world-container">
+
+        <!-- === 第一章：創世 === -->
+        <section id="genesis" class="world-section active">
+            <div class="section-content">
+                <div class="chapter-number">第一章</div>
+                <h2 class="section-title">創世<span class="title-sub">— はじまりの刹那 —</span></h2>
+                <div class="genesis-narrative" id="genesis-narrative">
+                    <p class="narrative-text fade-in">はじめに、<strong>無</strong>があった。</p>
+                    <p class="narrative-text fade-in delay-1">無は完全であり、完全であるがゆえに不安定であった。</p>
+                    <p class="narrative-text fade-in delay-2">そして、無は揺らいだ。</p>
+                    <p class="narrative-text fade-in delay-3">その揺らぎが——<em>すべて</em>のはじまりだった。</p>
+                </div>
+                <canvas id="genesis-canvas" class="section-canvas"></canvas>
+                <div class="genesis-stats" id="genesis-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">経過時間</span>
+                        <span class="stat-value" id="stat-time">0</span>
+                        <span class="stat-unit">年</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">エネルギー密度</span>
+                        <span class="stat-value" id="stat-energy">∞</span>
+                        <span class="stat-unit">J/m³</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">温度</span>
+                        <span class="stat-value" id="stat-temp">10³²</span>
+                        <span class="stat-unit">K</span>
+                    </div>
+                </div>
+                <button class="section-proceed" data-next="cosmos">宇宙の誕生を見届ける →</button>
+            </div>
+        </section>
+
+        <!-- === 第二章：宇宙 === -->
+        <section id="cosmos" class="world-section">
+            <div class="section-content">
+                <div class="chapter-number">第二章</div>
+                <h2 class="section-title">宇宙<span class="title-sub">— 無限の深淵 —</span></h2>
+                <div class="cosmos-narrative">
+                    <p class="narrative-text fade-in">光が生まれ、物質が凝縮し、最初の星が灯った。</p>
+                    <p class="narrative-text fade-in delay-1">重力が銀河を形作り、超新星が重元素を撒き散らす。</p>
+                    <p class="narrative-text fade-in delay-2">宇宙は膨張し続け、その果てに何があるのか、誰も知らない。</p>
+                </div>
+                <canvas id="cosmos-canvas" class="section-canvas"></canvas>
+                <div class="cosmos-info" id="cosmos-info">
+                    <div class="info-panel">
+                        <h3>恒星カタログ</h3>
+                        <div id="star-catalog" class="catalog-list"></div>
+                    </div>
+                    <div class="info-panel">
+                        <h3>銀河統計</h3>
+                        <div class="stat-grid">
+                            <div class="stat-item">
+                                <span class="stat-label">恒星数</span>
+                                <span class="stat-value" id="stat-stars">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">惑星数</span>
+                                <span class="stat-value" id="stat-planets">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">超新星爆発</span>
+                                <span class="stat-value" id="stat-supernovae">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">ブラックホール</span>
+                                <span class="stat-value" id="stat-blackholes">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="section-proceed" data-next="earth">大地の形成へ →</button>
+            </div>
+        </section>
+
+        <!-- === 第三章：大地 === -->
+        <section id="earth" class="world-section">
+            <div class="section-content">
+                <div class="chapter-number">第三章</div>
+                <h2 class="section-title">大地<span class="title-sub">— 揺れ動く大地 —</span></h2>
+                <div class="earth-narrative">
+                    <p class="narrative-text fade-in">灼熱のマグマが冷え、最初の地殻が形成された。</p>
+                    <p class="narrative-text fade-in delay-1">プレートは絶え間なく動き、山脈を押し上げ、海溝を穿つ。</p>
+                    <p class="narrative-text fade-in delay-2">大地は生きている。呼吸するように脈動している。</p>
+                </div>
+                <canvas id="earth-canvas" class="section-canvas"></canvas>
+                <div class="earth-controls">
+                    <div class="control-group">
+                        <label>地質年代</label>
+                        <select id="geological-era">
+                            <option value="hadean">冥王代（46〜40億年前）</option>
+                            <option value="archean">始生代（40〜25億年前）</option>
+                            <option value="proterozoic">原生代（25〜5.4億年前）</option>
+                            <option value="paleozoic">古生代（5.4〜2.5億年前）</option>
+                            <option value="mesozoic">中生代（2.5〜0.66億年前）</option>
+                            <option value="cenozoic" selected>新生代（6600万年前〜現在）</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="earth-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">大陸数</span>
+                        <span class="stat-value" id="stat-continents">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">最高標高</span>
+                        <span class="stat-value" id="stat-elevation">0</span>
+                        <span class="stat-unit">m</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">火山活動</span>
+                        <span class="stat-value" id="stat-volcanoes">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">地震頻度</span>
+                        <span class="stat-value" id="stat-earthquakes">0</span>
+                        <span class="stat-unit">/年</span>
+                    </div>
+                </div>
+                <button class="section-proceed" data-next="ocean">海洋の世界へ →</button>
+            </div>
+        </section>
+
+        <!-- === 第四章：海洋 === -->
+        <section id="ocean" class="world-section">
+            <div class="section-content">
+                <div class="chapter-number">第四章</div>
+                <h2 class="section-title">海洋<span class="title-sub">— 生命の揺りかご —</span></h2>
+                <div class="ocean-narrative">
+                    <p class="narrative-text fade-in">蒸気が冷え、最初の雨が降った。数百万年の雨が海を満たした。</p>
+                    <p class="narrative-text fade-in delay-1">海流は地球を巡る血液のように循環し、熱を運ぶ。</p>
+                    <p class="narrative-text fade-in delay-2">深海には光の届かない世界が広がり、未知の法則が支配する。</p>
+                </div>
+                <canvas id="ocean-canvas" class="section-canvas"></canvas>
+                <div class="ocean-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">海洋面積</span>
+                        <span class="stat-value" id="stat-ocean-area">0</span>
+                        <span class="stat-unit">%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">平均深度</span>
+                        <span class="stat-value" id="stat-ocean-depth">0</span>
+                        <span class="stat-unit">m</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">海水温</span>
+                        <span class="stat-value" id="stat-ocean-temp">0</span>
+                        <span class="stat-unit">°C</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">塩分濃度</span>
+                        <span class="stat-value" id="stat-salinity">0</span>
+                        <span class="stat-unit">‰</span>
+                    </div>
+                </div>
+                <button class="section-proceed" data-next="atmosphere">大気の世界へ →</button>
+            </div>
+        </section>
+
+        <!-- === 第五章：大気 === -->
+        <section id="atmosphere" class="world-section">
+            <div class="section-content">
+                <div class="chapter-number">第五章</div>
+                <h2 class="section-title">大気<span class="title-sub">— 天空の織物 —</span></h2>
+                <div class="atmosphere-narrative">
+                    <p class="narrative-text fade-in">大気は目に見えないヴェールとなり、大地を守る。</p>
+                    <p class="narrative-text fade-in delay-1">風は大気の意志であり、雲はその表情である。</p>
+                    <p class="narrative-text fade-in delay-2">嵐、虹、オーロラ——空は決して退屈しない。</p>
+                </div>
+                <canvas id="atmosphere-canvas" class="section-canvas"></canvas>
+                <div class="weather-dashboard" id="weather-dashboard">
+                    <div class="weather-main">
+                        <div class="weather-icon" id="weather-icon">☀</div>
+                        <div class="weather-temp" id="weather-temp">22°C</div>
+                        <div class="weather-desc" id="weather-desc">晴天</div>
+                    </div>
+                    <div class="weather-details">
+                        <div class="stat-item">
+                            <span class="stat-label">風速</span>
+                            <span class="stat-value" id="stat-wind">0</span>
+                            <span class="stat-unit">m/s</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">湿度</span>
+                            <span class="stat-value" id="stat-humidity">0</span>
+                            <span class="stat-unit">%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">気圧</span>
+                            <span class="stat-value" id="stat-pressure">0</span>
+                            <span class="stat-unit">hPa</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">季節</span>
+                            <span class="stat-value" id="stat-season">春</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="section-proceed" data-next="life">生命の誕生へ →</button>
+            </div>
+        </section>
+
+        <!-- === 第六章：生命 === -->
+        <section id="life" class="world-section">
+            <div class="section-content">
+                <div class="chapter-number">第六章</div>
+                <h2 class="section-title">生命<span class="title-sub">— 奇跡の連鎖 —</span></h2>
+                <div class="life-narrative">
+                    <p class="narrative-text fade-in">有機分子が偶然に出会い、自己複製する何かが生まれた。</p>
+                    <p class="narrative-text fade-in delay-1">それは生命と呼ぶにはあまりに原始的だったが、確かに「生きて」いた。</p>
+                    <p class="narrative-text fade-in delay-2">38億年の進化の果てに、生命は考えることを覚えた。</p>
+                </div>
+                <canvas id="life-canvas" class="section-canvas"></canvas>
+                <div class="evolution-timeline" id="evolution-timeline">
+                    <div class="timeline-track">
+                        <div class="timeline-marker" data-era="origin" style="left: 0%">
+                            <span class="marker-label">生命の起源</span>
+                            <span class="marker-date">38億年前</span>
+                        </div>
+                        <div class="timeline-marker" data-era="multicell" style="left: 15%">
+                            <span class="marker-label">多細胞生物</span>
+                            <span class="marker-date">10億年前</span>
+                        </div>
+                        <div class="timeline-marker" data-era="cambrian" style="left: 30%">
+                            <span class="marker-label">カンブリア爆発</span>
+                            <span class="marker-date">5.4億年前</span>
+                        </div>
+                        <div class="timeline-marker" data-era="land" style="left: 45%">
+                            <span class="marker-label">陸上進出</span>
+                            <span class="marker-date">4.7億年前</span>
+                        </div>
+                        <div class="timeline-marker" data-era="dinosaur" style="left: 60%">
+                            <span class="marker-label">恐竜時代</span>
+                            <span class="marker-date">2.3億年前</span>
+                        </div>
+                        <div class="timeline-marker" data-era="mammal" style="left: 75%">
+                            <span class="marker-label">哺乳類の時代</span>
+                            <span class="marker-date">6600万年前</span>
+                        </div>
+                        <div class="timeline-marker" data-era="human" style="left: 95%">
+                            <span class="marker-label">人類の登場</span>
+                            <span class="marker-date">20万年前</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="life-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">種の数</span>
+                        <span class="stat-value" id="stat-species">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">生態系</span>
+                        <span class="stat-value" id="stat-ecosystems">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">大量絶滅</span>
+                        <span class="stat-value" id="stat-extinctions">0</span>
+                        <span class="stat-unit">回</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">多様性指数</span>
+                        <span class="stat-value" id="stat-biodiversity">0</span>
+                    </div>
+                </div>
+                <button class="section-proceed" data-next="civilization">文明の夜明けへ →</button>
+            </div>
+        </section>
+
+        <!-- === 第七章：文明 === -->
+        <section id="civilization" class="world-section">
+            <div class="section-content">
+                <div class="chapter-number">第七章</div>
+                <h2 class="section-title">文明<span class="title-sub">— 知恵と創造 —</span></h2>
+                <div class="civilization-narrative">
+                    <p class="narrative-text fade-in">火を手にした時、人は自然の一部であることをやめた。</p>
+                    <p class="narrative-text fade-in delay-1">言葉が生まれ、物語が紡がれ、知識が蓄積された。</p>
+                    <p class="narrative-text fade-in delay-2">都市は大地に根を張り、文化は花を咲かせ、思想は風のように広がった。</p>
+                </div>
+                <canvas id="civilization-canvas" class="section-canvas"></canvas>
+                <div class="civ-dashboard">
+                    <div class="civ-map-container">
+                        <h3>文明マップ</h3>
+                        <canvas id="civ-map-canvas" width="600" height="300"></canvas>
+                    </div>
+                    <div class="civ-stats-container">
+                        <h3>世界統計</h3>
+                        <div class="stat-grid">
+                            <div class="stat-item">
+                                <span class="stat-label">人口</span>
+                                <span class="stat-value" id="stat-population">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">都市数</span>
+                                <span class="stat-value" id="stat-cities">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">技術レベル</span>
+                                <span class="stat-value" id="stat-tech">石器</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">文化圏</span>
+                                <span class="stat-value" id="stat-cultures">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">発明数</span>
+                                <span class="stat-value" id="stat-inventions">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">戦争</span>
+                                <span class="stat-value" id="stat-wars">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-log" id="event-log">
+                    <h3>歴史年表</h3>
+                    <div class="event-list" id="event-list"></div>
+                </div>
+                <button class="section-proceed" data-next="time">時の流れへ →</button>
+            </div>
+        </section>
+
+        <!-- === 第八章：時間 === -->
+        <section id="time" class="world-section">
+            <div class="section-content">
+                <div class="chapter-number">終章</div>
+                <h2 class="section-title">時間<span class="title-sub">— 永遠と刹那 —</span></h2>
+                <div class="time-narrative">
+                    <p class="narrative-text fade-in">時間とは何か。それは物理法則か、それとも意識の幻か。</p>
+                    <p class="narrative-text fade-in delay-1">この世界は始まりがあった。ならば、終わりもあるのだろうか。</p>
+                    <p class="narrative-text fade-in delay-2">宇宙が冷え切り、最後の星が消え、すべてが静寂に包まれる時——</p>
+                    <p class="narrative-text fade-in delay-3">もしかしたら、また新しい<strong>揺らぎ</strong>が生まれるかもしれない。</p>
+                </div>
+                <canvas id="time-canvas" class="section-canvas"></canvas>
+                <div class="philosophy-cards" id="philosophy-cards">
+                    <div class="philosophy-card">
+                        <div class="card-icon">🌀</div>
+                        <h4>存在の問い</h4>
+                        <p>なぜ無ではなく、何かが存在するのか。この問いに答えられる者はいない。しかし、問うことができること自体が、存在の証明ではないだろうか。</p>
+                    </div>
+                    <div class="philosophy-card">
+                        <div class="card-icon">∞</div>
+                        <h4>無限の paradox</h4>
+                        <p>宇宙は有限か無限か。もし有限なら、その外側には何があるのか。もし無限なら、なぜ我々はここにいるのか。</p>
+                    </div>
+                    <div class="philosophy-card">
+                        <div class="card-icon">⏳</div>
+                        <h4>時間の矢</h4>
+                        <p>物理法則は時間反転に対して対称だ。しかし、我々は過去から未来へしか進めない。この非対称性はどこから来るのか。</p>
+                    </div>
+                    <div class="philosophy-card">
+                        <div class="card-icon">🧠</div>
+                        <h4>意識の謎</h4>
+                        <p>原子の集まりが、なぜ「私」を感じるのか。物質から心が生まれる過程は、宇宙最大の謎かもしれない。</p>
+                    </div>
+                    <div class="philosophy-card">
+                        <div class="card-icon">🔄</div>
+                        <h4>永劫回帰</h4>
+                        <p>もし宇宙が何度も生まれ変わるなら、この瞬間もまた永遠に繰り返されるのだろうか。そして、そのことに意味はあるのか。</p>
+                    </div>
+                    <div class="philosophy-card">
+                        <div class="card-icon">💫</div>
+                        <h4>観測者効果</h4>
+                        <p>この世界を観測するあなたがいなければ、この世界は存在するのか。あなたが画面を閉じた時、この世界はどうなるのか。</p>
+                    </div>
+                </div>
+                <div class="world-cycle" id="world-cycle">
+                    <button class="cycle-btn" id="btn-rebirth">世界を再創造する ⟳</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- フッター -->
+    <footer id="world-footer">
+        <p>創世界 — AIが紡ぐ世界 — すべての事象はプロシージャルに生成されています</p>
+        <p class="footer-sub">この世界は観測者であるあなたのために存在します</p>
+    </footer>
+
+    <!-- スクリプト -->
+    <script src="js/utils.js"></script>
+    <script src="js/universe.js"></script>
+    <script src="js/geology.js"></script>
+    <script src="js/weather.js"></script>
+    <script src="js/life.js"></script>
+    <script src="js/civilization.js"></script>
+    <script src="js/time.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

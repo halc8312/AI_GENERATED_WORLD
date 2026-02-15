@@ -1,0 +1,56 @@
+# 検証ワークフロー
+# プルリクエスト時にHTMLとJavaScriptの検証を行います
+
+name: コード検証
+
+on:
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: HTML/CSS/JS 検証
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: HTMLファイルの存在確認
+        run: |
+          echo "=== HTMLファイル検証 ==="
+          if [ -f "docs/index.html" ]; then
+            echo "✅ index.html が存在します"
+          else
+            echo "❌ index.html が見つかりません"
+            exit 1
+          fi
+
+      - name: CSSファイルの存在確認
+        run: |
+          echo "=== CSSファイル検証 ==="
+          for file in docs/css/*.css; do
+            if [ -f "$file" ]; then
+              echo "✅ $(basename $file) が存在します"
+            fi
+          done
+
+      - name: JavaScriptファイルの構文チェック
+        run: |
+          echo "=== JavaScript構文検証 ==="
+          for file in docs/js/*.js; do
+            if [ -f "$file" ]; then
+              node --check "$file" && echo "✅ $(basename $file) - 構文OK" || echo "❌ $(basename $file) - 構文エラー"
+            fi
+          done
+
+      - name: ファイルサイズ確認
+        run: |
+          echo "=== ファイルサイズ確認 ==="
+          find docs -type f -exec ls -lh {} \; | awk '{print $5, $9}'
+          echo ""
+          echo "合計サイズ:"
+          du -sh docs/

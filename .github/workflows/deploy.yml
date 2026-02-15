@@ -1,0 +1,42 @@
+# GitHub Pages デプロイメントワークフロー
+# 創世界 (Sousekai) - AIが紡ぐ世界
+# このワークフローは main ブランチへのプッシュ時に自動的に GitHub Pages へデプロイします
+
+name: 創世界デプロイ
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: GitHub Pages へデプロイ
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: GitHub Pages を設定
+        uses: actions/configure-pages@v5
+
+      - name: アーティファクトをアップロード
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './docs'
+
+      - name: GitHub Pages にデプロイ
+        id: deployment
+        uses: actions/deploy-pages@v4
